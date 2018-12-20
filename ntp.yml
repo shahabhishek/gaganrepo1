@@ -1,0 +1,16 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: NTPpackage
+    yum:
+     name: ntp
+     state: latest
+  - name: NTPconfig
+    copy: src=/etc/ntp.conf dest=/etc/ntp.conf
+    ignore_errors: yes
+  - name: NTPservice
+    service:
+     name: ntpd
+     state: started
+     enabled: yes
